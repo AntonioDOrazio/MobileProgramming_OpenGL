@@ -1,0 +1,2 @@
+rootProject.name='MP_OpenGL'
+include ':app'
