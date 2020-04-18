@@ -1,6 +1,13 @@
 package it.tiburtinavalley.mpopengl;
 
+import android.content.Context;
 import android.opengl.GLES20;
+
+import org.apache.commons.io.IOUtils;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.Charset;
 
 public class Utility
 {
@@ -13,5 +20,18 @@ public class Utility
 
         return shader;
     }
+    public static String getShaderCodeFromFile(Context context, int fileId) {
+        try {
+            // Per convertire il codice degli shader in stringhe
+            InputStream inputStream =
+                    context.getResources().openRawResource(fileId);
+            String shaderCode =
+                    IOUtils.toString(inputStream, String.valueOf(Charset.defaultCharset()));
+            inputStream.close();
 
+            return shaderCode;
+        } catch (IOException e) {
+            return null;
+        }
+    }
 }
