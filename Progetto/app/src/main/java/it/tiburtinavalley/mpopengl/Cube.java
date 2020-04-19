@@ -48,32 +48,32 @@ public class Cube {
 
     private final String fragmentShaderCode =
             "precision mediump float;       // Set the default precision to medium. We don't need as high of a\n" +
-                    "                               // precision in the fragment shader.\n" +
-                    "uniform vec3 u_LightPos;       // The position of the light in eye space.\n" +
-                    "\n" +
-                    "\n" +
-                    "varying vec3 v_Position;       // Posizione interpolata del singolo frammento\n" +
-                    "varying vec4 v_Color;          // This is the color from the vertex shader interpolated across the\n" +
-                    "                               // triangle per fragment.\n" +
-                    "varying vec3 v_Normal;         // Interpolated normal for this fragment.\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "void main()                       // The entry point for our fragment shader.\n" +
-                    "{\n" +
-                    "   float distance = length(u_LightPos - v_Position);\n" +
-                    "\n" +
-                    "   vec3 lightVector = normalize(u_LightPos - v_Position);\n" +
-                    "\n" +
-                    "   float diffuse = max(dot(v_Normal, lightVector), 0.0);\n" +
-                    "\n" +
-                    "   diffuse = diffuse * (2.0 / (1.0 + (0.10 * distance * distance)));\n" +
-                    "\n" +
-                    "   // Add ambient lighting\n" +
-                    "   diffuse = diffuse + 0.3;\n" +
-                    "\n" +
-                    "   gl_FragColor = (v_Color * diffuse);\n" +
-                    "}";
+            "                               // precision in the fragment shader.\n" +
+            "uniform vec3 u_LightPos;       // The position of the light in eye space.\n" +
+            "\n" +
+            "\n" +
+            "varying vec3 v_Position;       // Posizione interpolata del singolo frammento\n" +
+            "varying vec4 v_Color;          // This is the color from the vertex shader interpolated across the\n" +
+            "                               // triangle per fragment.\n" +
+            "varying vec3 v_Normal;         // Interpolated normal for this fragment.\n" +
+            "\n" +
+            "\n" +
+            "\n" +
+            "void main()                       // The entry point for our fragment shader.\n" +
+            "{\n" +
+            "   float distance = length(u_LightPos - v_Position);\n" +
+            "\n" +
+            "   vec3 lightVector = normalize(u_LightPos - v_Position);\n" +
+            "\n" +
+            "   float diffuse = max(dot(v_Normal, lightVector), 0.0);\n" +
+            "\n" +
+            "   diffuse = diffuse * (2.0 / (1.0 + (0.10 * distance * distance)));\n" +
+            "\n" +
+            "   // Add ambient lighting\n" +
+            "   diffuse = diffuse + 0.3;\n" +
+            "\n" +
+            "   gl_FragColor = (v_Color * diffuse);\n" +
+            "}";
 
 
     private final int mProgram;
