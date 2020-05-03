@@ -17,6 +17,7 @@ public class Cube {
     static final int BYTES_PER_FLOAT = 4;
 
     // TODO caricare da file
+    // TODO caricare da file
     private final String vertexShaderCode =
             "uniform mat4 u_MVPMatrix;      // A constant representing the combined model/view/projection matrix.\n" +
                     "uniform mat4 u_MVMatrix;       // A constant representing the combined model/view matrix.\n" +
@@ -67,10 +68,10 @@ public class Cube {
             "\n" +
             "   float diffuse = max(dot(v_Normal, lightVector), 0.0);\n" +
             "\n" +
-            "   diffuse = diffuse * (2.0 / (1.0 + (0.10 * distance * distance)));\n" +
+            "   diffuse = diffuse * (1.0 / (1.0 + (0.10 * distance * distance)));\n" +
             "\n" +
             "   // Add ambient lighting\n" +
-            "   diffuse = diffuse + 0.3;\n" +
+            "   diffuse = diffuse + 0.2;\n" +
             "\n" +
             "   gl_FragColor = (v_Color * diffuse);\n" +
             "}";
@@ -321,7 +322,6 @@ public class Cube {
 
         // Pass in the light position in eye space.
         int lightPositionHandle = GLES20.glGetUniformLocation(mProgram, "u_LightPos");
-        System.out.println("OSSSSSSSS" + lightPositionInEyeSpace[0] + " " + lightPositionInEyeSpace[1] + " "+ lightPositionInEyeSpace[2]);
 
         GLES20.glUniform3f(lightPositionHandle, lightPositionInEyeSpace[0], lightPositionInEyeSpace[1], lightPositionInEyeSpace[2]);
 

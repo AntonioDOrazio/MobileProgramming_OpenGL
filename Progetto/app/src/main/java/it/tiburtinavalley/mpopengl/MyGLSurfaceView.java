@@ -55,14 +55,23 @@ public class MyGLSurfaceView extends GLSurfaceView {
         previousY = y;
 
         // Per ruotare la viewport
-        float xNorm = 2f * (e.getX() / getRootView().getWidth()) - 1f;
-        float yNorm = -2f * (e.getY() / getRootView().getHeight()) + 1f;
+        if(Math.abs(e.getX() - getRootView().getWidth()) < 400 || Math.abs(e.getX()) < 400){
+            float xNorm = 2f * (e.getX() / getRootView().getWidth()) - 1f;
+            renderer.setmXaxis(xNorm);
+        }
 
-        renderer.setmXaxis(xNorm);
-        renderer.setmYaxis(yNorm);
-        System.out.println(xNorm+ "DDD");
-        System.out.println(yNorm);
+        if(Math.abs(e.getX() - getRootView().getHeight()) < 400 || Math.abs(e.getY()) < 400){
+            float yNorm = -2f * (e.getY() / getRootView().getHeight()) + 1f;
+            renderer.setmYaxis(yNorm);
+        }
+
+        if (e.getAction() == MotionEvent.ACTION_UP)
+        {
+            renderer.setmXaxis(0);
+            renderer.setmYaxis(0);
+        }
 
         return true;
     }
+
 }
