@@ -53,7 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="96dp"
         android:background="@drawable/rounded_button"
         android:fontFamily="@font/akzidenz_grotesk_bold"
         android:text="Automatic Camera"
