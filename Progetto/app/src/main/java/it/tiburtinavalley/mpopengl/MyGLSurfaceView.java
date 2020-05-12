@@ -12,12 +12,12 @@ public class MyGLSurfaceView extends GLSurfaceView {
     private float previousX;
     private float previousY;
 
-    public MyGLSurfaceView(Context context) {
+    public MyGLSurfaceView(Context context, boolean isAutoCamera) {
         super(context);
 
         setEGLContextClientVersion(2);
 
-        renderer = new MyGLRenderer();
+        renderer = new MyGLRenderer(isAutoCamera);
 
         setRenderer(renderer);
 

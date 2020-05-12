@@ -21,9 +21,16 @@ public class MainActivity extends AppCompatActivity {
             getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+
+        getSupportActionBar().hide();
+
+
         super.onCreate(savedInstanceState);
 
-        glView = new MyGLSurfaceView(this);
+        Boolean isAutoCamera = getIntent().getBooleanExtra(getResources().getString(R.string.String_Auto_Camera), true);
+
+
+        glView = new MyGLSurfaceView(this, isAutoCamera);
 
         glView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE

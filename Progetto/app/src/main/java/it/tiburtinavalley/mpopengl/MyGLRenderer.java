@@ -12,6 +12,8 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class MyGLRenderer implements GLSurfaceView.Renderer {
 
+    private boolean isAutoCamera;
+
     private final float[] viewProjectionMatrix = new float[16];
     private final float[] projectionMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
@@ -57,6 +59,12 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     public void setAngle(float angle) {
         mAngle = angle;
     }
+
+    public MyGLRenderer(boolean isAutoCamera)
+    {
+        this.isAutoCamera = isAutoCamera;
+    }
+
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -130,11 +138,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         );
 */
         //Set view matrix from eye position
-
-
         rotateViewport();
-
-
 
 
         // Impostazioni e rendering del triangolo
@@ -207,15 +211,20 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     public void rotateViewport()
     {
-        float speed = 15f;
+        float speed = 8f;
 
         // Calculate deltaTime
         float timeSinceStart = SystemClock.uptimeMillis();
         float deltaTime = timeSinceStart - oldTimeSinceStart;
         oldTimeSinceStart = timeSinceStart;
 
-        float deltaX =  mXaxis * speed * deltaTime;
-        float deltaY = mYaxis * speed * deltaTime;
+        float deltaX =  speed * deltaTime;
+        float deltaY =  speed * deltaTime;
+
+        if (!isAutoCamera){
+            deltaX *= mXaxis;
+            deltaY *= mYaxis;
+        }
 
         // Clamp between -2 and 2
         deltaX = Math.max(-2f, Math.min(deltaX, 2f));
@@ -229,4 +238,5 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
        // Matrix.rotateM(viewMatrix, 0, deltaY, 0, 0, (float) Math.sqrt(2));
 
     }
+
 }

@@ -78,11 +78,6 @@ public class PointLight {
     }
     
     
-    
-    
-    
-    
-    
 
     public float[] getPositionInWorldSpace() {
         return positionInWorldSpace;

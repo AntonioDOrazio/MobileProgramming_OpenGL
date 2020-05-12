@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">MP_OpenGL</string>
+    <string name="app_name">OpenGL Showcase</string>
+    <string name="String_Auto_Camera">autoCamera</string>
 </resources>

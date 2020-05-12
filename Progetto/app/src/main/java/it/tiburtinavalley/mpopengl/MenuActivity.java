@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class MenuActivity extends AppCompatActivity implements View.OnClickListener{
     private Button btnStart;
@@ -16,23 +15,27 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onCreate(Bundle savedInstanceState){
+        getSupportActionBar().hide();
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.menu_page);
-        btnStart = findViewById(R.id.btnStart);
-        btnExit = findViewById(R.id.btnExit);
-        ivIcon = findViewById(R.id.ivIcon);
+        btnStart = findViewById(R.id.btnManual);
+        btnExit = findViewById(R.id.btnAuto);
         btnStart.setOnClickListener(this);
         btnExit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
-        if(v.getId() == R.id.btnStart){
+        if(v.getId() == R.id.btnManual){
             Intent i = new Intent(this, MainActivity.class);
+            i.putExtra(getString(R.string.String_Auto_Camera), false);
             startActivity(i);
         }
-        else if(v.getId() == R.id.btnExit){
-            System.exit(0);
+        else if(v.getId() == R.id.btnAuto){
+            Intent i = new Intent(this, MainActivity.class);
+            i.putExtra(getString(R.string.String_Auto_Camera), true);
+            startActivity(i);
         }
     }
 }

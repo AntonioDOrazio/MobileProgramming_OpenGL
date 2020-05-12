@@ -109,8 +109,6 @@ public class FloorPlane {
     // R, G, B, A
     final float[] color =
             {
-
-
                     // Top face (cyan)
                     0.0f, 1.0f, 1.0f, 1.0f,
                     0.0f, 1.0f, 1.0f, 1.0f,
@@ -118,8 +116,6 @@ public class FloorPlane {
                     0.0f, 1.0f, 1.0f, 1.0f,
                     0.0f, 1.0f, 1.0f, 1.0f,
                     0.0f, 1.0f, 1.0f, 1.0f,
-
-
             };
 
     // X, Y, Z
@@ -128,7 +124,6 @@ public class FloorPlane {
     // should be orthogonal to the points of each face.
     final float[] cubeNormalCoords =
             {
-
                     // Top face
                     0.0f, 2.0f, 0.0f,
                     0.0f, 2.0f, 0.0f,
@@ -136,8 +131,6 @@ public class FloorPlane {
                     0.0f, 2.0f, 0.0f,
                     0.0f, 2.0f, 0.0f,
                     0.0f, 2.0f, 0.0f,
-
-
             };
 
 
