@@ -31,24 +31,22 @@ public class MyGLSurfaceView extends GLSurfaceView {
         float x = e.getX();
         float y = e.getY();
 
-        switch (e.getAction()) {
+        if (e.getAction() == MotionEvent.ACTION_MOVE) {
+            float dx = x - previousX;
+            float dy = y - previousY;
 
-            case MotionEvent.ACTION_MOVE:
-                float dx = x - previousX;
-                float dy = y - previousY;
+            if (y > getHeight() / 2.0) {
+                dx = dx * -1;
+            }
 
-                if (y > getHeight() / 2) {
-                    dx = dx * -1;
-                }
+            if (y < getWidth() / 2.0) {
+                dy = dy * -1;
+            }
 
-                if (y < getWidth() / 2) {
-                    dy = dy * -1;
-                }
-
-                renderer.setAngle(
-                        renderer.getAngle() +
-                                ((dx + dy) * TOUCH_SCALE_FACTOR));
-                requestRender();
+            renderer.setAngle(
+                    renderer.getAngle() +
+                            ((dx + dy) * TOUCH_SCALE_FACTOR));
+            requestRender();
         }
 
         previousX = x;

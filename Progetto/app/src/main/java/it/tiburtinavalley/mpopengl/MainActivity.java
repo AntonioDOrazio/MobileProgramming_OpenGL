@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity {
 
     private GLSurfaceView glView;
@@ -22,12 +24,12 @@ public class MainActivity extends AppCompatActivity {
                     WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
 
-        getSupportActionBar().hide();
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
 
         super.onCreate(savedInstanceState);
 
-        Boolean isAutoCamera = getIntent().getBooleanExtra(getResources().getString(R.string.String_Auto_Camera), true);
+        boolean isAutoCamera = getIntent().getBooleanExtra(getResources().getString(R.string.string_auto_camera), true);
 
 
         glView = new MyGLSurfaceView(this, isAutoCamera);

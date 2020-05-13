@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">OpenGL Showcase</string>
-    <string name="String_Auto_Camera">autoCamera</string>
+    <string name="string_auto_camera" translatable="false">autoCamera</string>
+    <string name="btn_interactiveCamera">Interactive Camera</string>
+    <string name="btn_autoCamera">Automatic Camera</string>
+    <string name="label_title">OpenGL ES</string>
+    <string name="label_subtitle">A simple showcase</string>
 </resources>

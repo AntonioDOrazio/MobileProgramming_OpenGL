@@ -9,12 +9,12 @@ import java.nio.FloatBuffer;
 
 public class Cube {
 
-    static final int COORDINATES_DATA_SIZE = 3;
-    static final int COLOR_DATA_SIZE = 4;
-    static final int NORMAL_COORDINATES_DATA_SIZE = 3;
+    private static final int COORDINATES_DATA_SIZE = 3;
+    private static final int COLOR_DATA_SIZE = 4;
+    private static final int NORMAL_COORDINATES_DATA_SIZE = 3;
 
 
-    static final int BYTES_PER_FLOAT = 4;
+    private static final int BYTES_PER_FLOAT = 4;
 
     // TODO caricare da file
     // TODO caricare da file
@@ -85,7 +85,7 @@ public class Cube {
 
 
     // X, Y, Z
-    final float[] cubeCoords =
+    private final float[] cubeCoords =
             {
                     // In OpenGL counter-clockwise winding is default. This means that when we look at a triangle,
                     // if the points are counter-clockwise we are looking at the "front". If not we are looking at
@@ -142,7 +142,7 @@ public class Cube {
             };
 
     // R, G, B, A
-    final float[] color =
+    private final float[] color =
             {
                     // Front face (red)
                     1.0f, 0.0f, 0.0f, 1.0f,
@@ -197,7 +197,7 @@ public class Cube {
     // The normal is used in light calculations and is a vector which points
     // orthogonal to the plane of the surface. For a cube model, the normals
     // should be orthogonal to the points of each face.
-    final float[] cubeNormalCoords =
+    private final float[] cubeNormalCoords =
             {
                     // Front face
                     0.0f, 0.0f, 1.0f,

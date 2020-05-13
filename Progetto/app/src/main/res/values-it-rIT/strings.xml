@@ -1,2 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string name="app_name">OpenGL Showcase</string>
+    <string name="btn_interactiveCamera">Camera Interattiva</string>
+    <string name="btn_autoCamera">Camera Automatica</string>
+    <string name="label_title">OpenGL ES</string>
+    <string name="label_subtitle">Un semplice showcase</string>
+</resources>

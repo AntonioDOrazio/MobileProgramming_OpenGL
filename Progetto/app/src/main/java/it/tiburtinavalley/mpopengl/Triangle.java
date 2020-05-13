@@ -1,8 +1,5 @@
 package it.tiburtinavalley.mpopengl;
-
-import android.content.Context;
 import android.opengl.GLES20;
-import android.opengl.GLSurfaceView;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -10,8 +7,8 @@ import java.nio.FloatBuffer;
 
 public class Triangle {
 
-    static final int COORDS_PER_VERTEX = 3;
-    static final int BYTES_PER_FLOAT = 4;
+    private static final int COORDS_PER_VERTEX = 3;
+    private static final int BYTES_PER_FLOAT = 4;
 
     private final String vertexShaderCode =
             "attribute vec4 vPosition;" +
@@ -31,13 +28,13 @@ public class Triangle {
 
     private FloatBuffer vertexBuffer;
 
-    static float triangleCoords[] = {// in counterclockwise order:
+    private static float triangleCoords[] = {// in counterclockwise order:
             0.0f,  0.622008459f, 0.0f, // top
             -0.5f, -0.311004243f, 0.0f, // bottom left
             0.5f, -0.311004243f, 0.0f  // bottom right
     };
 
-    float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
+    private float[] color = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
 
     private int positionHandle;
     private int colorHandle;

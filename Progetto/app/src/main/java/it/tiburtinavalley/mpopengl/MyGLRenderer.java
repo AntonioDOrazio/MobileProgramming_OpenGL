@@ -1,6 +1,5 @@
 package it.tiburtinavalley.mpopengl;
 
-import android.media.Image;
 import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
@@ -20,15 +19,15 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private float[] rotationMatrix = new float[16];
 
-    private Triangle mTriangle;
-    private Square mSquare;
+    //private Triangle mTriangle;
+    //private Square mSquare;
     private Cube mCube;
     private PointLight pointLight;
     private FloorPlane plane;
 
 
-    public volatile float mAngle;
-    public volatile float mXaxis;
+    private volatile float mAngle;
+    private volatile float mXaxis;
 
     private float curXaxis;
     private float curYaxis;
@@ -98,15 +97,14 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         float ratio = (float) width / height;
 
         final float left = -ratio;
-        final float right = ratio;
         final float bottom = -1.0f;
         final float top = 1.0f;
-        final float near = 1.0f;
-        final float far = 10.0f;
+        final float near = 1.0f;   // a cosa servee??
+        final float far = 10.0f;   // a cosa servee??
 
      //   Matrix.frustumM(projectionMatrix, 0, left, right, bottom, top, near, 40.f);
        // Matrix.frustumM(projectionMatrix, 0,left, right, -1.5f, 1.5f, 1, 40);
-        Matrix.frustumM(projectionMatrix, 0, left, right, bottom, top, 1.5f, 30.f);
+        Matrix.frustumM(projectionMatrix, 0, left, ratio, bottom, top, 1.5f, 30.f);
 
         Matrix.setLookAtM(viewMatrix, 0,
                 //eyeX, eyeY, eyeZ,
@@ -207,7 +205,7 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     }
 
-    float oldTimeSinceStart = 0;
+    private float oldTimeSinceStart = 0;
 
     public void rotateViewport()
     {

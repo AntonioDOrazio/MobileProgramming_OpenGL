@@ -9,12 +9,12 @@ import java.nio.FloatBuffer;
 
 public class FloorPlane {
 
-    static final int COORDINATES_DATA_SIZE = 3;
-    static final int COLOR_DATA_SIZE = 4;
-    static final int NORMAL_COORDINATES_DATA_SIZE = 3;
+    private static final int COORDINATES_DATA_SIZE = 3;
+    private static final int COLOR_DATA_SIZE = 4;
+    private static final int NORMAL_COORDINATES_DATA_SIZE = 3;
 
 
-    static final int BYTES_PER_FLOAT = 4;
+    private static final int BYTES_PER_FLOAT = 4;
 
     // TODO caricare da file
     private final String vertexShaderCode =
@@ -88,7 +88,7 @@ public class FloorPlane {
 
 
     // X, Y, Z
-    final float[] cubeCoords =
+    private final float[] cubeCoords =
             {
                     // In OpenGL counter-clockwise winding is default. This means that when we look at a triangle,
                     // if the points are counter-clockwise we are looking at the "front". If not we are looking at
@@ -107,7 +107,7 @@ public class FloorPlane {
             };
 
     // R, G, B, A
-    final float[] color =
+    private final float[] color =
             {
                     // Top face (cyan)
                     0.0f, 1.0f, 1.0f, 1.0f,
@@ -141,7 +141,7 @@ public class FloorPlane {
     private int modelViewProjectionMatrixHandle;
 
     private final int vertexCount = cubeCoords.length / COORDINATES_DATA_SIZE;
-    private final int vertexStride = COORDINATES_DATA_SIZE * BYTES_PER_FLOAT;
+    private final int vertexStride = COORDINATES_DATA_SIZE * BYTES_PER_FLOAT;   // never used
 
 
     public FloorPlane() {

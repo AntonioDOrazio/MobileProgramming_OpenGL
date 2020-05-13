@@ -6,14 +6,14 @@ import android.opengl.Matrix;
 public class PointLight {
 
 
-    public float[] positionInWorldSpace;
-    public float[] positionInEyeSpace;
-    public float[] positionInModelSpace;
+    private float[] positionInWorldSpace;
+    private float[] positionInEyeSpace;
+    private float[] positionInModelSpace;
 
     private int programHandle;
-    float mvpMatrix[] = new float[16];
+    private float[] mvpMatrix = new float[16];
 
-    final String pointVertexShader =
+    private final String pointVertexShader =
             "uniform mat4 u_MVPMatrix;      \n"
                     + "attribute vec4 a_Position;     \n"
                     + "void main()                    \n"
@@ -23,7 +23,7 @@ public class PointLight {
                     + "   gl_PointSize = 5.0;         \n"
                     + "}                              \n";
 
-    final String pointFragmentShader =
+    private final String pointFragmentShader =
             "precision mediump float;       \n"
                     + "void main()                    \n"
                     + "{                              \n"
@@ -53,8 +53,8 @@ public class PointLight {
     }
 
 
-    int pointMVPMatrixHandle;
-    int pointPositionHandle;
+    private int pointMVPMatrixHandle;
+    private int pointPositionHandle;
 
 
     public void draw(float[] modelMatrix, float[] viewMatrix, float[] projectionMatrix) {
