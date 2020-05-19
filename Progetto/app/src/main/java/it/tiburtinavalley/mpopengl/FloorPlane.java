@@ -16,68 +16,8 @@ public class FloorPlane {
 
     private static final int BYTES_PER_FLOAT = 4;
 
-    // TODO caricare da file
-    private final String vertexShaderCode =
-            "uniform mat4 u_MVPMatrix;      // A constant representing the combined model/view/projection matrix.\n" +
-                    "uniform mat4 u_MVMatrix;       // A constant representing the combined model/view matrix.\n" +
-                    "\n" +
-                    "attribute vec4 a_Position;     // Per-vertex position information we will pass in.\n" +
-                    "attribute vec4 a_Color;        // Per-vertex color information we will pass in.\n" +
-                    "attribute vec3 a_Normal;       // Per-vertex normal information we will pass in.\n" +
-                    "\n" +
-                    "varying vec3 v_Position;       // This will be passed into the fragment shader.\n" +
-                    "varying vec4 v_Color;          // This will be passed into the fragment shader.\n" +
-                    "varying vec3 v_Normal;         // This will be passed into the fragment shader.\n" +
-                    "\n" +
-                    "void main()                         // The entry point for our vertex shader.\n" +
-                    "{\n" +
-                    "    // Trasformo i vertici in eye space\n" +
-                    "     v_Position = vec3(u_MVMatrix * a_Position);\n" +
-                    "\n" +
-                    "    // Trasformo i vettori normali alla superficie in eye space\n" +
-                    "    v_Normal = vec3(u_MVMatrix * vec4(a_Normal, 0.0));\n" +
-                    "\n" +
-                    "    // Non modifico i colori. Lo faccio nel fragment in cui calcolo l'illuminazione e quindi il nuovo colore\n" +
-                    "    v_Color = a_Color;\n" +
-                    "    // gl_Position — contains the position of the current vertex.\n" +
-                    "    // Moltiplico per la matrice MVP per effettuare la proiezione finale\n" +
-                    "    // dello\n" +
-                    "    // spazio 3D per lo schermo 2D del dispositivo\n" +
-                    "    gl_Position = u_MVPMatrix * a_Position;\n" +
-                    "}";
-
-    private final String fragmentShaderCode =
-            "precision mediump float;       // Set the default precision to medium. We don't need as high of a\n" +
-                    "                               // precision in the fragment shader.\n" +
-                    "uniform vec3 u_LightPos;       // The position of the light in eye space.\n" +
-                    "\n" +
-                    "\n" +
-                    "varying vec3 v_Position;       // Posizione interpolata del singolo frammento\n" +
-                    "varying vec4 v_Color;          // This is the color from the vertex shader interpolated across the\n" +
-                    "                               // triangle per fragment.\n" +
-                    "varying vec3 v_Normal;         // Interpolated normal for this fragment.\n" +
-                    "\n" +
-                    "\n" +
-                    "\n" +
-                    "void main()                       // The entry point for our fragment shader.\n" +
-                    "{\n" +
-                    "   float distance = length(u_LightPos - v_Position);\n" +
-                    "\n" +
-                    "   vec3 lightVector = normalize(u_LightPos - v_Position);\n" +
-                    "\n" +
-                    "   float diffuse = max(dot(v_Normal, lightVector), 0.0);\n" +
-                    "\n" +
-                    "   diffuse = diffuse * (1.0 / (1.0 + (0.10 * distance * distance)));\n" +
-                    "\n" +
-                    "   // Add ambient lighting\n" +
-                    "   diffuse = diffuse + 0.2;\n" + // prima era diffuse + 0.3
-                    "\n" +
-                    "   gl_FragColor = (v_Color * diffuse);\n" +
-                    "}";
-
-
-
-
+    private String vertexShaderCode;
+    private String fragmentShaderCode;
 
 
     private final int mProgram;
@@ -145,6 +85,9 @@ public class FloorPlane {
 
 
     public FloorPlane() {
+        vertexShaderCode = Utility.getShaderCodeFromFile(R.raw.vertex_plane);
+        fragmentShaderCode = Utility.getShaderCodeFromFile(R.raw.fragment_plane);
+
         // Initialize the buffers.
         vertexBuffer = ByteBuffer.allocateDirect(cubeCoords.length * BYTES_PER_FLOAT)
                 .order(ByteOrder.nativeOrder()).asFloatBuffer();

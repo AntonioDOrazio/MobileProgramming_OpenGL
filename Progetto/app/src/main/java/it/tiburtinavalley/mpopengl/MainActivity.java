@@ -2,6 +2,7 @@ package it.tiburtinavalley.mpopengl;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContextWrapper;
 import android.content.res.Configuration;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
@@ -28,6 +29,11 @@ public class MainActivity extends AppCompatActivity {
 
 
         super.onCreate(savedInstanceState);
+
+        //init
+        ContextUtil.getInstance().init(getApplicationContext());
+        //use via ApplicationContext.get()
+        assert(getApplicationContext() == ContextUtil.get());
 
         boolean isAutoCamera = getIntent().getBooleanExtra(getResources().getString(R.string.string_auto_camera), true);
 

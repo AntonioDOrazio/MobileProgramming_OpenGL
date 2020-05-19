@@ -20,11 +20,12 @@ public class Utility
 
         return shader;
     }
-    public static String getShaderCodeFromFile(Context context, int fileId) {
+    public static String getShaderCodeFromFile(int fileId) {
         try {
+
             // Per convertire il codice degli shader in stringhe
             InputStream inputStream =
-                    context.getResources().openRawResource(fileId);
+                    ContextUtil.get().getResources().openRawResource(fileId);
             String shaderCode =
                     IOUtils.toString(inputStream, String.valueOf(Charset.defaultCharset()));
             inputStream.close();

@@ -13,28 +13,18 @@ public class PointLight {
     private int programHandle;
     private float[] mvpMatrix = new float[16];
 
-    private final String pointVertexShader =
-            "uniform mat4 u_MVPMatrix;      \n"
-                    + "attribute vec4 a_Position;     \n"
-                    + "void main()                    \n"
-                    + "{                              \n"
-                    + "   gl_Position = u_MVPMatrix   \n"
-                    + "               * a_Position;   \n"
-                    + "   gl_PointSize = 5.0;         \n"
-                    + "}                              \n";
-
-    private final String pointFragmentShader =
-            "precision mediump float;       \n"
-                    + "void main()                    \n"
-                    + "{                              \n"
-                    + "   gl_FragColor = vec4(1.0,    \n"
-                    + "   1.0, 1.0, 1.0);             \n"
-                    + "}                              \n";
+    private String pointVertexShader;
+    private String pointFragmentShader;
 
 
 
 
     public PointLight() {
+
+        pointVertexShader = Utility.getShaderCodeFromFile(R.raw.vertex_point);
+        pointFragmentShader = Utility.getShaderCodeFromFile(R.raw.fragment_point);
+
+
         // Centrata nell'origine all'istante iniziale
         positionInModelSpace = new float[] {0.0f, 0.0f, 0.0f, 1.0f};
         positionInEyeSpace = new float[4];
