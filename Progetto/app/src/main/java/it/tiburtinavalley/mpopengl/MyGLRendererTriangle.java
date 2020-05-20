@@ -45,7 +45,7 @@ public class MyGLRendererTriangle implements GLSurfaceView.Renderer {
         // Create a rotation for the triangle
         // long time = SystemClock.uptimeMillis() % 4000L;
         // float angle = 0.090f * ((int) time);
-        Matrix.setRotateM(rotationMatrix, 0, mAngle, 0, 0, -1.0f);
+        Matrix.setRotateM(rotationMatrix, 0, -mAngle, 0, 0, -1.0f);
 
         // Combine the rotation matrix with the projection and camera view
         // Note that the vPMatrix factor *must be first* in order

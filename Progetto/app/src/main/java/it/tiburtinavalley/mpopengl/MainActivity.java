@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
         ContextUtil.getInstance().init(getApplicationContext());
         //use via ApplicationContext.get()
         assert (getApplicationContext() == ContextUtil.get());
-        if ( getIntent().getStringExtra("triang") != null) {
+
+        if ( getIntent().getStringExtra(getString(R.string.triangle)) != null) {
             glView = new MyGLSurfaceViewTriangle(this);
         }
         else {
