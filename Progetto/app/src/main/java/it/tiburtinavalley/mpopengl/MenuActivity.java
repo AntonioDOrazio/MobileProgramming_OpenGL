@@ -46,12 +46,12 @@ public class MenuActivity extends AppCompatActivity{
         @Override
         public void onClick(View v) {
             if (v.getId() == R.id.btn_triangle) {
-                GLSurfaceView glView = new MyGLSurfaceViewTriangle(context);
-                setContentView(glView);
                 Intent i = new Intent(context, MainActivity.class);
+                i.putExtra("triang", "");
                 startActivity(i);
             }
             else if (v.getId() == R.id.btn_manual) {
+                System.out.println("Qui ora");
                 Intent i = new Intent(context, MainActivity.class);
                 i.putExtra(getString(R.string.string_auto_camera), false);
                 startActivity(i);
