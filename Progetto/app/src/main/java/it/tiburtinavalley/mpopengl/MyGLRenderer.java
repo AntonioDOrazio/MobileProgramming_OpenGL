@@ -17,95 +17,57 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
     private final float[] projectionMatrix = new float[16];
     private final float[] viewMatrix = new float[16];
 
-    private float[] rotationMatrix = new float[16];
 
-    //private Triangle mTriangle;
-    //private Square mSquare;
     private Cube mCube;
     private PointLight pointLight;
     private FloorPlane plane;
 
-
-    private volatile float mAngle;
     private volatile float mXaxis;
-
-    private float curXaxis;
-    private float curYaxis;
-
-    public float getmXaxis() {
-        return mXaxis;
-    }
-
     public void setmXaxis(float mXaxis) {
         this.mXaxis = mXaxis;
     }
 
-    public float getmYaxis() {
-        return mYaxis;
-    }
-
-    public void setmYaxis(float mYaxis) {
-        this.mYaxis = mYaxis;
-    }
-
-    public volatile float mYaxis;
-
-
-    public float getAngle() {
-        return mAngle;
-    }
-
-    public void setAngle(float angle) {
-        mAngle = angle;
-    }
 
     public MyGLRenderer(boolean isAutoCamera)
     {
         this.isAutoCamera = isAutoCamera;
     }
 
-
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
 
-        curXaxis = 1f;
-        curYaxis = 1f;
-
+        // Ripulisci la viewport con un unico sfondo grigio
         GLES20.glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 
-        // Use culling to remove back faces.
+        // Per non renderizzare le facce negative
        GLES20.glEnable(GLES20.GL_CULL_FACE);
 
-        // Enable depth testing
-        //   GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-
-
-        // mTriangle = new Triangle();
-        //mSquare = new Square();
+        // Inizializza gli elementi da renderizzare
         mCube = new Cube();
         pointLight = new PointLight();
         plane = new FloorPlane();
-
-
 
     }
 
     @Override
     public void onSurfaceChanged(GL10 gl, int width, int height) {
+        // Crea una viewport di OpenGL che occupi tutto lo schermo
         GLES20.glViewport(0, 0, width, height);
 
+        // Questi quattro elementi rappresentano le proporzioni dello schermo per effettuare una corretta proiezione
         float ratio = (float) width / height;
-
         final float left = -ratio;
         final float bottom = -1.0f;
         final float top = 1.0f;
-        final float near = 1.0f;   // a cosa servee??
-        final float far = 10.0f;   // a cosa servee??
+        // Stabiliscono le distanza minime e massime entro il quale gli elementi sono renderizzati
+        // (Clipping planes)
+        final float near = 1.5f;
+        final float far = 30.0f;
 
-     //   Matrix.frustumM(projectionMatrix, 0, left, right, bottom, top, near, 40.f);
-       // Matrix.frustumM(projectionMatrix, 0,left, right, -1.5f, 1.5f, 1, 40);
-        Matrix.frustumM(projectionMatrix, 0, left, ratio, bottom, top, 1.5f, 30.f);
+        // Crea la matrice di proiezione
+        Matrix.frustumM(projectionMatrix, 0, left, ratio, bottom, top, near, far);
 
+        // Imposta un punto da guardare per la matrice View
         Matrix.setLookAtM(viewMatrix, 0,
                 //eyeX, eyeY, eyeZ,
                 0, 4, -12,
@@ -115,46 +77,39 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
                 0, 1, 0);
 
 
+        // Moltiplica le due matrici per creare matrice View Projection, che include posizione in cui guardare e modo in cui
+        // L'immagine è proiettata sullo schermo
         Matrix.multiplyMM(viewProjectionMatrix, 0, projectionMatrix, 0, viewMatrix, 0);
     }
 
     @Override
     public void onDrawFrame(GL10 gl) {
+        // Matrice temporanea per effettuare operazioni varie
         float[] scratch = new float[16];
 
+        // Ripulisce i buffer OpenGL prima di disegnare ulteriori elementi
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
+        // Attiva il controllo di profondità. Consente di rilevare automaticamente se un oggetto è dietro ad un altro
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
-        // Per la rotazione. Creo una matrice di rotazione, la moltiplico per vPMatrix e passo in draw il risultato complessivo
+        // Utilizzato per animazioni basate sul tempo
         long time = SystemClock.uptimeMillis() % 4000L;
+        // Calcola un angolo per le rotazioni che varia nel tempo
         float angle = 0.090f * ((int) time);
-/*
-        Matrix.setLookAtM(viewMatrix, 0,
-                4, 0, 2,
-                0f, 0f, 0f,
-                0f, 1.0f, 0.0f
-        );
-*/
-        //Set view matrix from eye position
+
+        // Funzioni che ruotano la telecamera
         rotateViewport();
 
 
-        // Impostazioni e rendering del triangolo
-        Matrix.setRotateM(rotationMatrix, 0, angle, 0, 0, -1.0f);
-        Matrix.multiplyMM(scratch, 0, viewProjectionMatrix, 0, rotationMatrix, 0);
-        //mTriangle.draw(scratch);
-
-
         // Impostazioni e rendering del cubo
-        // Calculate position of the light. Rotate and then push into the distance.
+        // Imposta posizione e rotazione della luce nel tempo
         float[] lightModelMatrix = new float[16]; // Verra usata per calcolare le posizioni della luce
         Matrix.setIdentityM(lightModelMatrix, 0);
         Matrix.translateM(lightModelMatrix, 0, 0.0f, 0.0f, -4.0f);
         Matrix.rotateM(lightModelMatrix, 0, angle, 0.0f, 1.0f, 0.0f);
         Matrix.translateM(lightModelMatrix, 0, 0.0f, 0.0f, 4.0f);
 
-
-
+        // Imposta gli attributi calcolati della luce nella classe PointLight
         float[] tempPos = new float[4];
         Matrix.multiplyMV(tempPos, 0, lightModelMatrix, 0, pointLight.getPositionInModelSpace(), 0);
         pointLight.setPositionInWorldSpace(tempPos);
@@ -163,42 +118,35 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         pointLight.setPositionInEyeSpace(tempPos);
 
 
-
-
-
-        // Draw a plane
+        // Disegna il plane e lo posiziona in basso
         float[] planeModelMatrix = new float[16];
         Matrix.setIdentityM(planeModelMatrix, 0);
         Matrix.translateM(planeModelMatrix, 0, 0.0f, -24.0f, 0f);
-        //Matrix.rotateM(planeModelMatrix, 0, angle, 0f, 1.0f, 0.0f);
         plane.draw(planeModelMatrix, viewMatrix, projectionMatrix, pointLight.getPositionInEyeSpace());
 
 
-        // Draw a point representing the light
+        // Disegna un punto per simulare un'origine della luce
         pointLight.draw(lightModelMatrix, viewMatrix, projectionMatrix);
 
 
-        // Draw a cube
+        // Primo cubo
         float[] cubeModelMatrix = new float[16];
         Matrix.setIdentityM(cubeModelMatrix, 0);
-
         Matrix.translateM(cubeModelMatrix, 0, .0f, .0f, 0f);
         Matrix.rotateM(cubeModelMatrix, 0, angle, 0.0f, -1.0f, 0.0f);
         mCube.draw(cubeModelMatrix, viewMatrix, projectionMatrix, pointLight.getPositionInEyeSpace());
 
-        // Draw a cube
+        // Secondo cubo
         cubeModelMatrix = new float[16];
         Matrix.setIdentityM(cubeModelMatrix, 0);
-
         Matrix.translateM(cubeModelMatrix, 0, -4.4f,  (float) Math.sin(0.07*angle), -3.5f);
         Matrix.rotateM(cubeModelMatrix, 0, angle, .7f, 0, .7f);
         mCube.draw(cubeModelMatrix, viewMatrix, projectionMatrix, pointLight.getPositionInEyeSpace());
 
 
-        // Draw a cube
+        // Terzo cubo
         cubeModelMatrix = new float[16];
         Matrix.setIdentityM(cubeModelMatrix, 0);
-
         Matrix.translateM(cubeModelMatrix, 0, 5f,  (float) Math.sin(0.05*angle), 4f);
         Matrix.rotateM(cubeModelMatrix, 0, angle, 0.0f, .5f, 0.0f);
         mCube.draw(cubeModelMatrix, viewMatrix, projectionMatrix, pointLight.getPositionInEyeSpace());
@@ -207,33 +155,33 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     private float oldTimeSinceStart = 0;
 
+    // Questa funzione effettua la rotazione della telecamera
     public void rotateViewport()
     {
         float speed = 8f;
 
-        // Calculate deltaTime
+        // Calcola la differenza di tempo  tra un frame e l'altro
+        // Questo servirà per rendere il moto della telecamera dipendente
+        // Dal tempo e non dal framerate, assicurando la stessa velocità per ogni dispositivo
+        // Anche se meno performante
         float timeSinceStart = SystemClock.uptimeMillis();
         float deltaTime = timeSinceStart - oldTimeSinceStart;
         oldTimeSinceStart = timeSinceStart;
 
         float deltaX =  speed * deltaTime;
-        float deltaY =  speed * deltaTime;
 
+        // Se è stata impostata la videocamera in modo manuale, si moltiplica lo spostamento per l'input desiderato
         if (!isAutoCamera){
             deltaX *= mXaxis;
-            deltaY *= mYaxis;
         }
 
-        // Clamp between -2 and 2
+        // Costringe lo spostamento massimo tra -2 e 2
         deltaX = Math.max(-2f, Math.min(deltaX, 2f));
-        deltaY = Math.max(-2f , Math.min(deltaY, 2f));
 
-        curXaxis = curXaxis + deltaX;
-        curYaxis = curYaxis + deltaY;
-
+        // Effettua la rotazione della telecamera di deltaX angolo lungo l'asse Y
+        // Nota: l'asse è X perché l'input dallo schermo è preso in orizzontale, ma per avere
+        // Una rotazione orizzontale bisogna ruotare lungo l'asse Y verticale.
         Matrix.rotateM(viewMatrix, 0, deltaX, 0, 1, 0);
-     //   Matrix.rotateM(viewMatrix, 0, deltaY, (float) Math.sqrt(2), 0, 0);
-       // Matrix.rotateM(viewMatrix, 0, deltaY, 0, 0, (float) Math.sqrt(2));
 
     }
 

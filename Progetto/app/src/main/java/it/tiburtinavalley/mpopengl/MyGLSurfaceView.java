@@ -29,44 +29,19 @@ public class MyGLSurfaceView extends GLSurfaceView {
     @Override
     public boolean onTouchEvent(MotionEvent e) {
         float x = e.getX();
-        float y = e.getY();
 
-        if (e.getAction() == MotionEvent.ACTION_MOVE) {
-            float dx = x - previousX;
-            float dy = y - previousY;
+        // Per ruotare la viewport con il tocco ai lati
 
-            if (y > getHeight() / 2.0) {
-                dx = dx * -1;
-            }
-
-            if (y < getWidth() / 2.0) {
-                dy = dy * -1;
-            }
-
-            renderer.setAngle(
-                    renderer.getAngle() +
-                            ((dx + dy) * TOUCH_SCALE_FACTOR));
-            requestRender();
-        }
-
-        previousX = x;
-        previousY = y;
-
-        // Per ruotare la viewport
+        // Controllo sulla quantità di spazio in cui è possibile eseguire l'input
         if(Math.abs(e.getX() - getRootView().getWidth()) < 400 || Math.abs(e.getX()) < 400){
             float xNorm = 2f * (e.getX() / getRootView().getWidth()) - 1f;
             renderer.setmXaxis(xNorm);
         }
 
-        if(Math.abs(e.getX() - getRootView().getHeight()) < 400 || Math.abs(e.getY()) < 400){
-            float yNorm = -2f * (e.getY() / getRootView().getHeight()) + 1f;
-            renderer.setmYaxis(yNorm);
-        }
-
+        // Azzera l'input nel momento in cui si alza il dito dallo schermo
         if (e.getAction() == MotionEvent.ACTION_UP)
         {
             renderer.setmXaxis(0);
-            renderer.setmYaxis(0);
         }
 
         return true;
