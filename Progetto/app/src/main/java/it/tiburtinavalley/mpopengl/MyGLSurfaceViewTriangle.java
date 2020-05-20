@@ -14,7 +14,7 @@ class MyGLSurfaceViewTriangle extends GLSurfaceView {
     public MyGLSurfaceViewTriangle(Context context){
         super(context);
 
-        // Create an OpenGL ES 2.0 context
+        // Create an OpenGL ES 3.0 context
         setEGLContextClientVersion(3);
 
         renderer = new MyGLRendererTriangle();
@@ -23,7 +23,7 @@ class MyGLSurfaceViewTriangle extends GLSurfaceView {
         setRenderer(renderer);
 
         // Render the view only when there is a change in the drawing data
-        //setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
 
     private final float TOUCH_SCALE_FACTOR = 180.0f / 320;

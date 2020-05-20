@@ -3,12 +3,14 @@ package it.tiburtinavalley.mpopengl;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.ContextWrapper;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 
 import java.util.Objects;
 
@@ -27,13 +29,12 @@ public class MainActivity extends AppCompatActivity {
 
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-
         super.onCreate(savedInstanceState);
 
         //init
         ContextUtil.getInstance().init(getApplicationContext());
         //use via ApplicationContext.get()
-        assert(getApplicationContext() == ContextUtil.get());
+        assert (getApplicationContext() == ContextUtil.get());
 
         boolean isAutoCamera = getIntent().getBooleanExtra(getResources().getString(R.string.string_auto_camera), true);
         glView = new MyGLSurfaceView(this, isAutoCamera);
