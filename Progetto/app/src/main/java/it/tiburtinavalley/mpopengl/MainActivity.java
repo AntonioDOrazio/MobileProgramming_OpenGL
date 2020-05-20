@@ -36,10 +36,7 @@ public class MainActivity extends AppCompatActivity {
         assert(getApplicationContext() == ContextUtil.get());
 
         boolean isAutoCamera = getIntent().getBooleanExtra(getResources().getString(R.string.string_auto_camera), true);
-
-
         glView = new MyGLSurfaceView(this, isAutoCamera);
-
         glView.setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_IMMERSIVE
                         // Set the content to appear under the system bars so that the
@@ -50,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
                         // Hide the nav bar and status bar
                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                         | View.SYSTEM_UI_FLAG_FULLSCREEN);
-
         setContentView(glView);
     }
-
 }

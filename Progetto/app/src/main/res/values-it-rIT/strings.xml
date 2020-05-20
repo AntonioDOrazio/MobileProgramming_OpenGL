@@ -5,4 +5,5 @@
     <string name="btn_autoCamera">Camera Automatica</string>
     <string name="label_title">OpenGL ES</string>
     <string name="label_subtitle">Un semplice showcase</string>
+    <string name="btn_triangle">Esempio Triangolo</string>
 </resources>

@@ -84,8 +84,6 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onDrawFrame(GL10 gl) {
-        // Matrice temporanea per effettuare operazioni varie
-        float[] scratch = new float[16];
 
         // Ripulisce i buffer OpenGL prima di disegnare ulteriori elementi
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
@@ -184,5 +182,4 @@ public class MyGLRenderer implements GLSurfaceView.Renderer {
         Matrix.rotateM(viewMatrix, 0, deltaX, 0, 1, 0);
 
     }
-
 }

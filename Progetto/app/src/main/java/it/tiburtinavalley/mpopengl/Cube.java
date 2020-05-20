@@ -189,7 +189,6 @@ public class Cube {
                     0.0f, -1.0f, 0.0f
             };
 
-
     // Gli handle sono le maniglie che consentono di interagire con le variabili dei programmi shader
     private int positionHandle;
     private int colorHandle;
