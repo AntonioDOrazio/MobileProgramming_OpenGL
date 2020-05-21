@@ -1,10 +1,10 @@
 <resources>
     <string name="app_name">OpenGL Showcase</string>
     <string name="string_auto_camera" translatable="false">autoCamera</string>
-    <string name="btn_interactiveCamera">Interactive Camera</string>
-    <string name="btn_autoCamera">Automatic Camera</string>
+    <string name="triangle" translatable="false">triangle</string>
+    <string name="btn_interactiveCamera">Cubes: Manual Camera</string>
+    <string name="btn_autoCamera">Cubes: Automatic Camera</string>
     <string name="label_title">OpenGL ES</string>
     <string name="label_subtitle">A simple showcase</string>
-    <string name="btn_triangle">Triangle Example</string>
-    <string name="triangle">triangle</string>
+    <string name="btn_triangle">Rotating Triangle</string>
 </resources>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">OpenGL Showcase</string>
-    <string name="btn_interactiveCamera">Camera Interattiva</string>
-    <string name="btn_autoCamera">Camera Automatica</string>
+    <string name="btn_interactiveCamera">Cubi: Camera Manuale</string>
+    <string name="btn_autoCamera">Cubi: Camera Automatica</string>
     <string name="label_title">OpenGL ES</string>
     <string name="label_subtitle">Un semplice showcase</string>
-    <string name="btn_triangle">Esempio Triangolo</string>
+    <string name="btn_triangle">Triangolo con Rotazione</string>
 </resources>
