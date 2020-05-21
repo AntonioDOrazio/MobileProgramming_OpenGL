@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         //use via ApplicationContext.get()
         assert (getApplicationContext() == ContextUtil.get());
 
+        // Crea un'istanza GLSurfaceView e impostala come ContentView per questa attività.
         if ( getIntent().getStringExtra(getString(R.string.triangle)) != null) {
             glView = new MyGLSurfaceViewTriangle(this);
         }

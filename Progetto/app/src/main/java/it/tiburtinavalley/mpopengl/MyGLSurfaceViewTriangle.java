@@ -14,15 +14,15 @@ class MyGLSurfaceViewTriangle extends GLSurfaceView {
     public MyGLSurfaceViewTriangle(Context context){
         super(context);
 
-        // Create an OpenGL ES 2.0 context
+        // Crea un contesto OpenGL ES 2.0
         setEGLContextClientVersion(2);
 
         renderer = new MyGLRendererTriangle();
 
-        // Set the Renderer for drawing on the GLSurfaceView
+        // Imposta il Renderer per disegnare sulla GLSurfaceView
         setRenderer(renderer);
 
-        // Render the view only when there is a change in the drawing data
+        // Renderizza la vista solo quando c'è una modifica nei dati del disegno
         setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
 
@@ -32,9 +32,8 @@ class MyGLSurfaceViewTriangle extends GLSurfaceView {
 
     @Override
     public boolean onTouchEvent(MotionEvent e) {
-        // MotionEvent reports input details from the touch screen
-        // and other input controls. In this case, you are only
-        // interested in events where the touch position changed.
+        // MotionEvent riporta i dettagli di input dal touchscreen e altri controlli di input.
+        // In questo caso, sei interessato solo agli eventi in cui la posizione del tocco è cambiata.
 
         float x = e.getX();
         float y = e.getY();
@@ -45,12 +44,12 @@ class MyGLSurfaceViewTriangle extends GLSurfaceView {
                 float dx = x - previousX;
                 float dy = y - previousY;
 
-                // reverse direction of rotation above the mid-line
+                // senso inverso di rotazione sopra la linea mediana
                 if (y > getHeight() / 2) {
                     dx = dx * -1 ;
                 }
 
-                // reverse direction of rotation to left of the mid-line
+                // senso inverso di rotazione a sinistra della linea mediana
                 if (x < getWidth() / 2) {
                     dy = dy * -1 ;
                 }
